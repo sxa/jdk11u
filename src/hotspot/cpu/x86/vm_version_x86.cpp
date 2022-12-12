@@ -750,7 +750,12 @@ void VM_Version::get_processor_features() {
                "(%u cores per cpu, %u threads per core) family %d model %d stepping %d microcode 0x%x"
                "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
                cores_per_cpu(), threads_per_core(),
-               cpu_family(), _model, _stepping, os::cpu_microcode_revision(),
+               cpu_family(), _model, _stepping,
+#ifdef __sun
+               "",
+#else
+               os::cpu_microcode_revision(),
+#endif
                (supports_cmov() ? ", cmov" : ""),
                (supports_cmpxchg8() ? ", cx8" : ""),
                (supports_fxsr() ? ", fxsr" : ""),
